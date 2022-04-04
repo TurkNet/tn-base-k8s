@@ -31,9 +31,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       box.vm.hostname = opts[:name]
       box.vm.network "private_network", ip: opts[:ip]
 
-      box.vm.provider "virtualbox" do |vb|
+      box.vm.provider "virtualbox"  do |vb|
         vb.cpus = opts[:cpus]
         vb.memory = opts[:memory]
+      end
+
+      box.vm.provider "parallels"  do |prl|
+        prl.cpus = opts[:cpus]
+        prl.memory = opts[:memory]
       end
       
       box.vm.provision "shell", path: "scripts/common.sh"
