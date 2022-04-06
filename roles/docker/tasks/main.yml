@@ -43,7 +43,7 @@
 - name: Configure docker
   copy:
     dest: /etc/docker/daemon.json
-    src: files/docker-daemon.json
+    src: docker-daemon.json
     mode: 0644
   notify: Restart docker
 

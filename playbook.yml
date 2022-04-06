@@ -1,6 +1,11 @@
 ---
 - hosts: all
+  become: true
   roles:
     - common
     - docker
     - k8s
+
+- hosts: all
+  roles:
+    - deploy

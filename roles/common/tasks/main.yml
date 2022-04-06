@@ -1,3 +1,13 @@
+---
+- name: set timezone to Europe/Istanbul
+  community.general.timezone:
+    name: Europe/Istanbul
+
+- name: update apt
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
 - name: Install libraries for downloading packages
   apt:
     name: "{{ package }}"

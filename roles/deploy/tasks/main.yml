@@ -1,0 +1,40 @@
+- name: Check node master
+  command: kubectl get nodes --selector=node-role.kubernetes.io/master -ojsonpath --template='{.items[].spec.taints}'
+  register: kube_node_master
+
+- name: Untaint node
+  command: kubectl taint nodes --all node-role.kubernetes.io/master-
+  when: kube_node_master.stdout.find('NoSchedule') != -1
+
+- name: Check Flannel
+  command: kubectl -nkube-system get daemonset
+  register: kube_flannel
+
+- name: Install Flannel
+  command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  when: kube_flannel.stdout.find('flannel') == -1
+
+- name: Get Helm repositories
+  command: helm repo list
+  register: helm_repos
+  ignore_errors: true
+
+- name: Add OpenEBS chart repository
+  command: helm repo add openebs https://openebs.github.io/charts
+  when: helm_repos.stdout.find('bitnami') == -1
+
+- name: Get Kubernetes namespaces
+  command: kubectl get namespaces
+  register: kube_ns
+
+- name: Create openebs namespace
+  command: kubectl create namespace openebs
+  when: kube_ns.stdout.find('openebs') == -1
+
+- name: Get openebs daemonset
+  command: kubectl -nopenebs get daemonset
+  register: openebs_daemonset
+
+- name: Install OpenEBS via helm
+  command: helm --namespace=openebs install openebs openebs/openebs
+  when: openebs_daemonset.stdout.find('openebs') == -1
