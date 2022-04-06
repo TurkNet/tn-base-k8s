@@ -14,27 +14,8 @@
   command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
   when: kube_flannel.stdout.find('flannel') == -1
 
-- name: Get Helm repositories
-  command: helm repo list
-  register: helm_repos
-  ignore_errors: true
+- name: Deploy sample app
+  command: kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:1.0
 
-- name: Add OpenEBS chart repository
-  command: helm repo add openebs https://openebs.github.io/charts
-  when: helm_repos.stdout.find('bitnami') == -1
-
-- name: Get Kubernetes namespaces
-  command: kubectl get namespaces
-  register: kube_ns
-
-- name: Create openebs namespace
-  command: kubectl create namespace openebs
-  when: kube_ns.stdout.find('openebs') == -1
-
-- name: Get openebs daemonset
-  command: kubectl -nopenebs get daemonset
-  register: openebs_daemonset
-
-- name: Install OpenEBS via helm
-  command: helm --namespace=openebs install openebs openebs/openebs
-  when: openebs_daemonset.stdout.find('openebs') == -1
+- name: Expose sample app
+  command: kubectl expose deployment hello-app --type=NodePort --port=8080
