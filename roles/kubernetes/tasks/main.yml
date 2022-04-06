@@ -20,6 +20,16 @@
 
 - include_tasks: sysctl-setup.yml
 
+- name: Remove swapfile from /etc/fstab
+  mount:
+    name: swap
+    fstype: swap
+    state: absent
+    
+- name: Disable swap
+  shell: swapoff -a
+  when: ansible_swaptotal_mb > 0
+
 - include_tasks: kubelet-setup.yml  # deprecated
   when: kubernetes_kubelet_extra_args|length > 0
 
