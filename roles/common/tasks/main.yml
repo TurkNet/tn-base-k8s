@@ -1,0 +1,10 @@
+- name: Install libraries for downloading packages
+  apt:
+    name: "{{ package }}"
+      vars:
+        package:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
