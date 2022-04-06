@@ -1,0 +1,9 @@
+---
+- name: Hold Kubernetes packages
+  command: apt-mark hold kubelet kubeadm kubectl
+
+- name: Disable swap
+  lineinfile:
+    regexp: / swap /
+    path: /etc/fstab
+    state: absent
