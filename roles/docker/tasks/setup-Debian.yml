@@ -44,8 +44,12 @@
     warn: false
   when: add_repository_key is failed
 
+- name: Get dpkg architecture
+  command: dpkg --print-architecture
+  register: dpkg_arch
+
 - name: Add Docker repository.
   apt_repository:
-    repo: "{{ docker_apt_repository }}"
+    repo: "deb [arch={{ dpkg_arch.stdout  }}] {{ docker_apt_repository }}"
     state: present
     update_cache: true
