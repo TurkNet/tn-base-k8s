@@ -32,6 +32,22 @@
     verbosity: 2
   when: not kubernetes_init_stat.stat.exists
 
+- name: Create ~/.kube directory
+  file:
+    state: directory
+    path: /home/{{ default_user }}/.kube
+    mode: 0755
+
+- name: Initialise ~/.kube/config
+  copy:
+    dest: /home/{{ default_user }}/.kube/config
+    src: /etc/kubernetes/admin.conf
+    owner: "{{ default_user }}"
+    group: "{{ default_user }}"
+    remote_src: yes
+    force: no
+    mode: '0600'
+
 - name: Ensure .kube directory exists.
   file:
     path: ~/.kube
