@@ -3,8 +3,8 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "turknet-devops/ubuntu-20.04"
-  
   config.vm.box_check_update = true
+  config.vm.network :private_network, ip: "192.168.1.10"
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 2
