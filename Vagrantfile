@@ -15,10 +15,10 @@ Vagrant.configure("2") do |config|
 
   config.hostsupdater.aliases = {
     '192.168.33.71' => [
-      'prometheus.turknet.dev',
-      'alertmanager.turknet.dev',
-      'grafana.turknet.dev',
-      'tekton.turknet.dev'
+      'prometheus.turknet.com',
+      'alertmanager.turknet.com',
+      'grafana.turknet.com',
+      'tekton.turknet.com'
     ]
   }
 

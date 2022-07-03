@@ -9,7 +9,7 @@ prometheus:
     hosts:
       - prometheus.{{ prometheus_stack.domain_name.suffix }}
     tls:
-    - secretName: turknet.dev-cert
+    - secretName: turknet.com-cert
       hosts:
         - prometheus.{{ prometheus_stack.domain_name.suffix }}
 
@@ -45,7 +45,7 @@ alertmanager:
     hosts:
       - alertmanager.{{ prometheus_stack.domain_name.suffix }}
     tls:
-    - secretName: turknet.dev-cert
+    - secretName: turknet.com-cert
       hosts:
         - alertmanager.{{ prometheus_stack.domain_name.suffix }}
 
@@ -85,7 +85,7 @@ grafana:
     hosts:
       - grafana.{{ prometheus_stack.domain_name.suffix }}
     tls:
-    - secretName: turknet.dev-cert
+    - secretName: turknet.com-cert
       hosts:
         - grafana.{{ prometheus_stack.domain_name.suffix }}
 

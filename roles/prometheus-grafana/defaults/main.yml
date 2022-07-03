@@ -6,7 +6,7 @@ prometheus_stack:
     namespace: monitoring
 
   domain_name:
-    suffix: turknet.dev
+    suffix: turknet.com
 
   prometheus:
     resources:
