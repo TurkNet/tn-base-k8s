@@ -1,0 +1,24 @@
+---
+controller:
+  hostNetwork: true
+  kind: DaemonSet
+  service:
+    type: ClusterIP
+    omitClusterIP: true
+
+    enableHttp: true
+    enableHttps: false
+
+  nodeSelector: {}
+
+  config:
+    disable-ipv6: "true"
+
+    use-forwarded-headers: "true"
+    proxy-body-size: "50m"
+    proxy-hide-headers: "Server"
+    server-tokens: "false"
+
+defaultBackend:
+  service:
+    omitClusterIP: true

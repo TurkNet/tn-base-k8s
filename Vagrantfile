@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "turknet-devops/ubuntu-20.04"
-  config.vm.box_version = "0.0.5"
+  config.vm.box_version = "0.0.4"
   config.vm.box_check_update = true
 
   # Define three VMs with static private IP addresses.
@@ -12,6 +12,15 @@ Vagrant.configure("2") do |config|
     { :name => "node1",   :ip => "192.168.33.72",  :cpus => 1,  :memory => 2048 },
     { :name => "node2",   :ip => "192.168.33.73",  :cpus => 1,  :memory => 2048 }
   ]
+
+  config.hostsupdater.aliases = {
+    '192.168.33.71' => [
+      'prometheus.turknet.dev',
+      'alertmanager.turknet.dev',
+      'grafana.turknet.dev',
+      'tekton.turknet.dev'
+    ]
+  }
 
   # Provision each of the VMs.
   boxes.each do |opts|

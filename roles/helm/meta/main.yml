@@ -1,7 +1,7 @@
 ---
 dependencies: []
 galaxy_info:
-  author: ilkerispir
+  author: turknet
   role_name: helm
   description: Helm for Kubernetes.
   company: Midwestern Mac, LLC
