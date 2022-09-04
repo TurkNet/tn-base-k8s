@@ -1,11 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-  config.vm.box = "turknet-devops/ubuntu-20.04"
-  config.vm.box_version = "0.0.4"
-  config.vm.box_check_update = true
+Vagrant.configure(2) do |config|
 
+  if Etc.uname[:version].include? 'ARM64'
+    config.vm.box = "turknet-devops/ubuntu-20.04"
+    config.vm.box_version = "0.0.5"
+    config.vm.provider "parallels"
+  else
+    config.vm.box = "geerlingguy/ubuntu2004"
+    config.vm.box_version = "1.0.3"
+    config.vm.provider "virtualbox"
+  end
+  
   # Define three VMs with static private IP addresses.
   boxes = [
     { :name => "master",  :ip => "192.168.33.71",  :cpus => 2,  :memory => 4096 },
