@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
     config.vm.provider "parallels"
   else
     config.vm.box = "geerlingguy/ubuntu2004"
-    config.vm.box_version = "1.0.3"
+    config.vm.box_version = "1.0.4"
     config.vm.provider "virtualbox"
   end
   
@@ -20,14 +20,14 @@ Vagrant.configure(2) do |config|
     { :name => "node2",   :ip => "192.168.33.73",  :cpus => 1,  :memory => 2048 }
   ]
 
-  config.hostsupdater.aliases = {
-    '192.168.33.71' => [
-      'prometheus.turknet.com',
-      'alertmanager.turknet.com',
-      'grafana.turknet.com',
-      'tekton.turknet.com'
-    ]
-  }
+ # config.hostsupdater.aliases = {
+  #  '192.168.33.71' => [
+   #   'prometheus.turknet.com',
+    #  'alertmanager.turknet.com',
+    #  'grafana.turknet.com',
+    #  'tekton.turknet.com'
+    #]
+  #}
 
   # Provision each of the VMs.
   boxes.each do |opts|
